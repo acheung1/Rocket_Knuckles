@@ -1,0 +1,31 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Rocket : MonoBehaviour {
+    Rigidbody rigidbody;
+
+	// Use this for initialization
+	void Start () {
+        rigidbody = GetComponent<Rigidbody>();  
+	}
+	
+	// Update is called once per frame
+	void Update () {
+        ProcessInput();
+	}
+
+    private void ProcessInput()
+    {
+        if (Input.GetKey(KeyCode.UpArrow)) {
+            rigidbody.AddRelativeForce(Vector3.up);
+        } else if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Rotate(Vector3.back);
+        }
+        else if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Rotate(Vector3.forward);
+        }
+    }
+}
