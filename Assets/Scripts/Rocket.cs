@@ -20,10 +20,26 @@ public class Rocket : MonoBehaviour {
         Thrust();
         Rotate();
 	}
-    
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        switch(collision.gameObject.tag)
+        {
+            case "Friendly":
+                print("YOU ARE ALIVE FOOL");
+                break;
+            case "Fuel":
+                print("FUEL");
+                break;
+            default:
+                print("YOU ARE DEAD FOOL");
+                break;
+        }
+    }
+
     private void Thrust()
     {
-        if (Input.GetKey(KeyCode.UpArrow))
+        if (Input.GetKey(KeyCode.Space))
         {
             rigidbody.AddRelativeForce(Vector3.up * mainThurst);
             if (!rocketThrust.isPlaying)
@@ -43,13 +59,22 @@ public class Rocket : MonoBehaviour {
 
         float rotationThisFrame = rcsThrust * Time.deltaTime;
 
-        if (Input.GetKey(KeyCode.LeftArrow))
+       
+        if (Input.GetKey(KeyCode.DownArrow))
         {
             transform.Rotate(Vector3.left * rotationThisFrame);
         }
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (Input.GetKey(KeyCode.UpArrow))
         {
             transform.Rotate(Vector3.right * rotationThisFrame);
+        }
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            transform.Rotate(Vector3.down * rotationThisFrame);
+        }
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            transform.Rotate(Vector3.up * rotationThisFrame);
         }
 
         rigidbody.freezeRotation = false; // resume physics control of rotation
